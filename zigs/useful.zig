@@ -3,10 +3,17 @@ const ArrayList = std.ArrayList;
 const Allocator = std.mem.Allocator;
 const splitSequence = std.mem.splitSequence;
 
-pub fn readFileToLines(fileName: []const u8, alloc: Allocator) !std.mem.SplitIterator([]u8, []u8) {
+pub fn readFileToLines(fileName: []const u8, alloc: Allocator) ![][]const u8 {
     const delimiter: []const u8 = if (@import("builtin").os.tag == .windows) "\r\n" else "\n";
     const blob = try readFile(fileName, alloc);
-    return splitSequence(u8, &blob, delimiter);
+    var sequence = splitSequence(u8, blob, delimiter);
+
+    var ar = ArrayList([]const u8).init(alloc);
+    while (sequence.next()) |arr| {
+        try ar.append(arr);
+    }
+
+    return ar.items;
 }
 
 pub fn readFile(fileName: []const u8, alloc: Allocator) ![]u8 {
