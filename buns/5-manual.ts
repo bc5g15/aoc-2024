@@ -74,7 +74,6 @@ const findLegalPosition = (set: Set<number>, list: number[]) => {
 const reorderLine = (rules: Rules, checks: number[]) => {
     const result = [...checks];
     while(!checkLine(rules, result)) {
-        // console.log(result);
         for (let i = 0; i < result.length-1; i++) {
             const number = result[i];
             let rest = new Set(result.slice(i+1));
