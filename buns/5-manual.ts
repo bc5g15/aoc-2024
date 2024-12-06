@@ -108,11 +108,6 @@ const part2 = (rules: Rules, checks: number[][]) => {
         .reduce((acc, cur) => acc + middleElement(cur), 0);
 }
 
-let x = [1,2,3];
-console.log(x.splice(1,1));
-console.log(x.splice(1,0,4));
-console.log(x);
-
 console.log('Test: Expecting 143, Actual ', part1(...parseInput(testInput)));
 console.log('Test: Expecting 123, Actual ', part2(...parseInput(testInput)));
 
